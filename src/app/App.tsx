@@ -1,8 +1,12 @@
+import AppHeader from "./components/AppHeader";
+import DashboardPage from "./pages/DashboardPage";
+
 function App() {
      return (
-          <>
-               <h1>Get started</h1>
-          </>
+          <div className="min-h-screen">
+               <AppHeader />
+               <DashboardPage />
+          </div>
      );
 }
 
