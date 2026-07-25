@@ -1,4 +1,4 @@
-import { Plus, Sun } from "lucide-react";
+import { Moon, Plus, Sun } from "lucide-react";
 import { useState } from "react";
 import Button from "./ui/button";
 
@@ -24,14 +24,14 @@ const AppHeader = () => {
                     >
                          CV
                     </span>
-                    <span className="text-xl tracking-tight">BOOST</span>
+                    <span className="text-xl tracking-tight dark:text-background">BOOST</span>
                </button>
                <div className="flex items-center gap-3">
                     <Button size="sm" variant="black">
                          <Plus size={13} /> Nouvelle analyse
                     </Button>
                     <Button size="icon" variant="black" onClick={handleThemeToggle}>
-                         <Sun size={16} />
+                         {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
                     </Button>
                </div>
           </header>
