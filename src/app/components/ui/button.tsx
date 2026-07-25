@@ -3,7 +3,7 @@ import { cn } from "../../lib/cn";
 interface ButtonProps {
      children: React.ReactNode;
      onClick?: () => void;
-     variant?: "primary" | "secondary" | "black";
+     variant?: "primary" | "secondary" | "black" | "outlinedestructive";
      size?: "sm" | "md" | "lg" | "icon";
      className?: string;
      type?: "button" | "submit";
@@ -18,9 +18,10 @@ const Button: React.FC<ButtonProps> = ({
      type = "button",
 }) => {
      const variantStyles: Record<string, string> = {
-          primary: "bg-primary text-black border-black hover:bg-yellow-300",
-          secondary: "bg-white text-black border-black hover:bg-gray-50",
-          black: "bg-black text-primary border-black hover:bg-gray-900",
+          primary: "bg-primary text-black hover:bg-primary",
+          secondary: "bg-white text-black hover:bg-gray-50",
+          black: "bg-black text-primary hover:bg-gray-900",
+          outlinedestructive: "bg-transparent text-destructive hover:bg-destructive/10",
      };
      const sizeStyles: Record<string, string> = {
           sm: "px-3 py-1.5 text-sm gap-1.5",
