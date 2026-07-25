@@ -39,6 +39,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --shadow-sm: 2px 2px 0px #000;
+  --shadow-md: 4px 4px 0px #000;
+  --shadow-md-focus: 4px 4px 0px var(--primary);
+  --shadow-lg: 6px 6px 0px #000;
+  --shadow-xl: 8px 8px 0px #000;
 }
 
 .dark {
@@ -76,6 +82,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  --shadow-sm: 2px 2px 0px #00000065;
+  --shadow-md: 4px 4px 0px #00000065;
+  --shadow-md-focus: 4px 4px 0px #facc15c1;
+  --shadow-lg: 6px 6px 0px #00000065;
+  --shadow-xl: 8px 8px 0px #00000065;
 }
 
 @theme inline {
@@ -117,6 +129,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
 }
 
 @layer base {
