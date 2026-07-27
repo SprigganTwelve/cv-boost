@@ -11,7 +11,7 @@ function App() {
           <div className="min-h-screen">
                <AppHeader onDashboard={() => setPage("dashboard")} onNewAnalysis={() => setPage("new-analysis")} />
                {page === "dashboard" && <DashboardPage onNewAnalysis={() => setPage("new-analysis")} />}
-               {page === "new-analysis" && <NewAnalysisPage />}
+               {page === "new-analysis" && <NewAnalysisPage onBack={() => setPage("dashboard")} />}
           </div>
      );
 }
