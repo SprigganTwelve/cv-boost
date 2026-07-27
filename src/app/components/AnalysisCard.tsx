@@ -15,7 +15,7 @@ const AnalysisCard: React.FC<AnalysisCard> = ({ analysis }) => {
           <article className="border-2 p-4 md:p-5 flex items-center gap-4 cursor-pointer hover:translate-y-0.5 transition-transform shadow-md">
                {/* Company avatar */}
                <div
-                    className="w-12 h-12 md:w-14 md:h-14 bg-primary border-2 flex items-center justify-center font-bold text-xl"
+                    className="w-12 h-12 md:w-14 md:h-14 bg-primary dark:text-background border-2 flex items-center justify-center font-bold text-xl"
                     aria-hidden="true"
                >
                     {analysis.company[0]}

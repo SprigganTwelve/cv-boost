@@ -5,7 +5,7 @@ import Button from "../components/ui/button";
 import { INITIAL_ANALYSES } from "../lib/mockData";
 import type { Analysis } from "../lib/types";
 
-const DashboardPage = () => {
+const DashboardPage = ({ onNewAnalysis }: { onNewAnalysis: () => void }) => {
      const [analyses, setAnalyses] = useState<Analysis[]>(INITIAL_ANALYSES);
      const [search, setSearch] = useState("");
      const [sortBy, setSortBy] = useState<"date" | "score">("date");
@@ -37,7 +37,7 @@ const DashboardPage = () => {
                          <p className="text-lg font-medium text-gray-600 mb-6 max-w-xl">
                               Découvrez comment améliorer votre CV grâce à une analyse IA détaillée.
                          </p>
-                         <Button size="lg">
+                         <Button size="lg" onClick={onNewAnalysis}>
                               <Plus size={13} /> Nouvelle analyse
                          </Button>
                     </div>
@@ -68,12 +68,16 @@ const DashboardPage = () => {
                               </div>
                               <select
                                    id="sort-select"
-                                   className="px-3 py-2 border-2 font-bold cursor-pointer focus:outline-none text-sm shadow-md"
+                                   className="px-3 py-2 border-2 font-bold cursor-pointer focus:outline-none text-sm shadow-md "
                                    value={sortBy}
                                    onChange={(e) => setSortBy(e.target.value as "date" | "score")}
                               >
-                                   <option value="date">Trier par date</option>
-                                   <option value="score">Trier par score</option>
+                                   <option className="dark:text-background" value="date">
+                                        Trier par date
+                                   </option>
+                                   <option className="dark:text-background" value="score">
+                                        Trier par score
+                                   </option>
                               </select>
                          </div>
                     </div>
@@ -84,7 +88,7 @@ const DashboardPage = () => {
                               <FileText size={70} className="text-7xl mb-5" />
                               <h3 className="font-black text-2xl mb-2">Aucune analyse</h3>
                               <p className="mb-6 font-medium">Commencez par analyser votre premier CV.</p>
-                              <Button size="lg">
+                              <Button size="lg" onClick={onNewAnalysis}>
                                    <Plus size={20} /> Créer ma première analyse
                               </Button>
                          </div>

@@ -83,11 +83,11 @@
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
 
-  --shadow-sm: 2px 2px 0px #00000065;
-  --shadow-md: 4px 4px 0px #00000065;
-  --shadow-md-focus: 4px 4px 0px #facc15c1;
-  --shadow-lg: 6px 6px 0px #00000065;
-  --shadow-xl: 8px 8px 0px #00000065;
+  --shadow-sm: 2px 2px 0px #363636e8;
+  --shadow-md: 4px 4px 0px #363636e8;
+  --shadow-md-focus: 4px 4px 0px #faa615e8;
+  --shadow-lg: 6px 6px 0px #363636e8;
+  --shadow-xl: 8px 8px 0px #363636e8;
 }
 
 @theme inline {
