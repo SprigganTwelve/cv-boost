@@ -8,17 +8,28 @@ type Page = "dashboard" | "new-analysis" | "report";
 
 function App() {
      const [page, setPage] = useState<Page>("dashboard");
+     const [selectedId, setSelectedId] = useState<string>("1");
+
      return (
           <div className="min-h-screen">
                <AppHeader onDashboard={() => setPage("dashboard")} onNewAnalysis={() => setPage("new-analysis")} />
                {page === "dashboard" && (
                     <DashboardPage
                          onNewAnalysis={() => setPage("new-analysis")}
-                         onOpenAnalysis={() => setPage("report")}
+                         onOpenAnalysis={(id) => {
+                              setSelectedId(id);
+                              setPage("report");
+                         }}
                     />
                )}
                {page === "new-analysis" && <NewAnalysisPage onBack={() => setPage("dashboard")} />}
-               {page === "report" && <ReportPage />}
+               {page === "report" && (
+                    <ReportPage
+                         reportId={selectedId}
+                         onNewAnalysis={() => setPage("new-analysis")}
+                         onBack={() => setPage("dashboard")}
+                    />
+               )}
           </div>
      );
 }

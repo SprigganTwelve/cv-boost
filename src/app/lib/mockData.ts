@@ -1,10 +1,376 @@
-import type { Analysis } from "./types";
+import type { Analysis, Report } from "./types";
 
-const INITIAL_ANALYSES: Analysis[] = [
+const MOCK_ANALYSES: Analysis[] = [
      { id: "1", company: "Google", role: "Software Engineer", date: "10 juin 2025", score: 82 },
-     { id: "2", company: "Stripe", role: "Product Manager", date: "5 juin 2025", score: 64 },
-     { id: "3", company: "Figma", role: "Frontend Engineer", date: "28 mai 2025", score: 91 },
-     { id: "4", company: "Datadog", role: "DevOps Engineer", date: "20 mai 2025", score: 47 },
+     { id: "2", company: "Datadog", role: "DevOps Engineer", date: "20 mai 2025", score: 47 },
 ];
 
-export { INITIAL_ANALYSES };
+export { MOCK_ANALYSES, MOCK_REPORTS };
+
+const MOCK_REPORTS: Record<string, Report> = {
+     "1": {
+          id: "1",
+          company: "Google",
+          role: "Software Engineer",
+          date: "10 juin 2025",
+          globalScore: 82,
+          estimatedAfter: 92,
+          summary: "Votre CV présente une bonne adéquation générale avec l'offre de Software Engineer chez Google. Vous démontrez une solide maîtrise des technologies backend et une expérience pertinente en développement d'APIs. Cependant, certaines compétences clés mentionnées dans l'offre — notamment Docker, Kubernetes et Terraform — sont absentes de votre CV, ce qui pénalise votre score ATS. Vos expériences sont décrites de manière trop générique et manquent de résultats chiffrés, ce qui réduit leur impact aux yeux des recruteurs. En apportant les modifications recommandées, vous pouvez significativement améliorer votre compatibilité.",
+          detailedScores: [
+               { name: "ATS", score: 79, comment: "Bonne compatibilité, quelques mots-clés manquants." },
+               { name: "Compétences", score: 88, comment: "Très bonne couverture des compétences demandées." },
+               { name: "Structure", score: 85, comment: "CV bien organisé et facile à parcourir." },
+               { name: "Contenu", score: 72, comment: "Manque de résultats chiffrés et de métriques." },
+               { name: "Ton", score: 80, comment: "Ton professionnel et approprié." },
+               { name: "Lisibilité", score: 91, comment: "Excellente lisibilité, mise en forme soignée." },
+          ],
+          strengths: [
+               "Bonne adéquation des compétences backend avec l'offre.",
+               "Expériences professionnelles pertinentes et récentes.",
+               "Utilisation correcte des verbes d'action (développé, conçu, optimisé).",
+               "CV facilement lisible avec une structure claire.",
+               "Présence des mots-clés principaux Java, REST API et Git.",
+          ],
+          weaknesses: [
+               "Peu ou pas de résultats chiffrés dans les descriptions d'expériences.",
+               "Compétences Docker, Kubernetes et Terraform absentes.",
+               "Titre du poste peu adapté à l'offre ciblée.",
+               "Descriptions d'expériences trop génériques, manque de contexte.",
+               "Section compétences non structurée par catégories.",
+          ],
+          recommendations: [
+               {
+                    priority: "haute",
+                    title: "Ajouter des résultats chiffrés",
+                    impact: "+6 pts ATS",
+                    why: "Les recruteurs et les systèmes ATS valorisent fortement les accomplissements mesurables. Les CV avec des métriques concrètes obtiennent en moyenne 40 % plus d'entretiens.",
+                    how: "Pour chaque expérience, ajoutez au moins un chiffre : volume de données, nombre d'utilisateurs, gain de performance, réduction des bugs, etc.",
+                    before: "Participated in backend development and worked on API optimization.",
+                    after: "Developed and optimized Java Spring Boot REST APIs serving over 20,000 daily active users, reducing average response time by 35%.",
+               },
+               {
+                    priority: "haute",
+                    title: "Ajouter les compétences cloud manquantes",
+                    impact: "+8 pts ATS",
+                    why: "Docker, Kubernetes et Terraform sont mentionnés plusieurs fois dans l'offre. Leur absence pénalise fortement votre score ATS.",
+                    how: "Ajoutez-les explicitement dans votre section compétences et mentionnez-les dans vos expériences si applicable.",
+                    before: "Compétences : Java, Python, Git, CI/CD.",
+                    after: "Compétences : Java, Python, Git, CI/CD, Docker, Kubernetes, Terraform (notions avancées).",
+               },
+               {
+                    priority: "haute",
+                    title: "Adapter le titre du poste",
+                    impact: "+4 pts ATS",
+                    why: 'Le titre de votre CV ("Développeur Backend") diffère de l\'intitulé du poste ("Software Engineer"). Cette différence réduit le score ATS.',
+                    how: "Adaptez le titre de votre CV pour qu'il corresponde exactement ou se rapproche de l'intitulé du poste visé.",
+                    before: "Développeur Backend Java",
+                    after: "Software Engineer — Backend & APIs",
+               },
+               {
+                    priority: "moyenne",
+                    title: "Structurer la section compétences par catégories",
+                    impact: "+3 pts ATS",
+                    why: "Une section compétences organisée améliore la lisibilité pour les ATS et les recruteurs.",
+                    how: "Regroupez vos compétences en sous-catégories claires plutôt qu'en liste plate.",
+                    before: "Java, Python, React, Git, Docker, SQL, REST API, Agile.",
+                    after: "Langages : Java, Python | Frameworks : Spring Boot, React | Outils : Git, Docker | Méthodes : Agile, Scrum.",
+               },
+          ],
+          keywords: {
+               present: ["Java", "REST API", "Git", "Spring Boot", "Agile", "SQL", "Python", "CI/CD", "Microservices"],
+               missing: ["Docker", "Kubernetes", "Terraform", "GCP", "Cloud Native", "gRPC", "Prometheus"],
+               optional: ["TypeScript", "React", "Redis", "Kafka", "GraphQL"],
+          },
+          skills: {
+               detected: [
+                    "Java",
+                    "Spring Boot",
+                    "REST API",
+                    "Python",
+                    "SQL",
+                    "Git",
+                    "CI/CD",
+                    "Agile",
+                    "Microservices",
+                    "Linux",
+               ],
+               toHighlight: ["Microservices", "CI/CD", "Agile", "SQL"],
+          },
+          criteria: [
+               {
+                    name: "ATS",
+                    score: 79,
+                    summary: "Votre CV est globalement compatible avec les ATS mais manque de certains mots-clés critiques.",
+                    strengths: ["Bonne densité de mots-clés principaux.", "Format compatible avec les parseurs ATS."],
+                    weaknesses: ["Absence de Docker, Kubernetes, Terraform.", "Titre non aligné avec l'offre."],
+                    tips: [
+                         "Ajoutez les mots-clés manquants naturellement dans vos descriptions.",
+                         "Alignez votre titre avec celui de l'offre.",
+                    ],
+                    example: null,
+               },
+               {
+                    name: "Compétences",
+                    score: 88,
+                    summary: "Très bonne couverture des compétences techniques demandées dans l'offre.",
+                    strengths: ["Compétences backend bien couvertes.", "Stack technique cohérente avec l'offre."],
+                    weaknesses: ["Compétences cloud absentes.", "Outils DevOps peu représentés."],
+                    tips: ["Ajoutez une section Cloud/DevOps.", "Mentionnez vos certifications si vous en avez."],
+                    example: null,
+               },
+               {
+                    name: "Contenu",
+                    score: 72,
+                    summary: "Le contenu est pertinent mais manque de profondeur et de métriques concrètes.",
+                    strengths: ["Expériences récentes et pertinentes.", "Verbes d'action bien utilisés."],
+                    weaknesses: ["Peu de chiffres et de résultats mesurables.", "Descriptions trop génériques."],
+                    tips: [
+                         "Quantifiez chaque expérience avec des métriques.",
+                         "Contextualisez vos missions avec l'impact business.",
+                    ],
+                    example: {
+                         before: "Travail sur des APIs backend.",
+                         after: "Développement et maintenance de 12 APIs REST Java desservant 50 000 utilisateurs/jour.",
+                    },
+               },
+               {
+                    name: "Structure",
+                    score: 85,
+                    summary: "Structure claire et professionnelle, facile à parcourir pour un recruteur.",
+                    strengths: ["Sections bien délimitées.", "Ordre logique des informations."],
+                    weaknesses: ["Section compétences non catégorisée.", "Manque de section résumé professionnel."],
+                    tips: [
+                         "Ajoutez un résumé professionnel en haut de CV.",
+                         "Organisez les compétences par catégories.",
+                    ],
+                    example: null,
+               },
+               {
+                    name: "Ton",
+                    score: 80,
+                    summary: "Le ton est professionnel et approprié. Quelques formulations peuvent être renforcées.",
+                    strengths: ["Vocabulaire professionnel et adapté.", "Cohérence du ton sur l'ensemble du document."],
+                    weaknesses: [
+                         "Certaines formulations sont trop passives.",
+                         "Manque d'assertivité dans la description des rôles.",
+                    ],
+                    tips: ["Privilégiez la voix active.", "Commencez chaque bullet point par un verbe d'action fort."],
+                    example: {
+                         before: "Was involved in the development of new features.",
+                         after: "Architected and shipped 8 new product features impacting 15,000+ users.",
+                    },
+               },
+               {
+                    name: "Lisibilité",
+                    score: 91,
+                    summary: "Excellente lisibilité. La mise en forme est soignée et le contenu est facile à scanner.",
+                    strengths: ["Mise en forme claire et aérée.", "Hiérarchie visuelle bien respectée."],
+                    weaknesses: ["Quelques sections manquent de consistance typographique."],
+                    tips: [
+                         "Vérifiez l'uniformité des tailles de police.",
+                         "Assurez-vous que tous les bullets sont alignés.",
+                    ],
+                    example: null,
+               },
+          ],
+     },
+
+     "2": {
+          id: "2",
+          company: "Datadog",
+          role: "DevOps Engineer",
+          date: "20 mai 2025",
+          globalScore: 47,
+          estimatedAfter: 68,
+          summary: "Votre CV présente une adéquation insuffisante avec l'offre de DevOps Engineer chez Datadog. Votre profil est principalement orienté développement backend, alors que le poste requiert une expertise opérationnelle forte : infrastructure as code, orchestration de conteneurs, observabilité et SRE. Les mots-clés critiques de l'offre (Terraform, Kubernetes, Prometheus, Grafana, PagerDuty) sont quasiment absents. Votre expérience en CI/CD est un point positif, mais elle est insuffisamment détaillée. Des efforts substantiels de repositionnement sont nécessaires pour atteindre un niveau de compétitivité acceptable sur ce poste.",
+          detailedScores: [
+               { name: "ATS", score: 39, comment: "Très peu de mots-clés DevOps/SRE détectés." },
+               { name: "Compétences", score: 42, comment: "Compétences ops absentes ou très peu représentées." },
+               { name: "Structure", score: 68, comment: "Structure correcte mais mal ciblée pour un rôle DevOps." },
+               { name: "Contenu", score: 51, comment: "Contenu trop orienté dev, pas assez ops." },
+               { name: "Ton", score: 55, comment: "Ton développeur, pas opérateur/SRE." },
+               { name: "Lisibilité", score: 72, comment: "Lisibilité correcte malgré le manque de ciblage." },
+          ],
+          strengths: [
+               "Expérience CI/CD présente — un point de départ solide.",
+               "Connaissance de Linux et des environnements Unix.",
+               "Bonne maîtrise des langages de scripting (Python, Bash).",
+               "Expérience en environnements cloud (mentions AWS).",
+          ],
+          weaknesses: [
+               "Terraform, Ansible, Kubernetes absents du CV.",
+               "Aucune mention d'observabilité (Prometheus, Grafana, Datadog lui-même).",
+               "Pas d'expérience documentée en gestion d'incidents ou on-call.",
+               "Infrastructure as Code (IaC) non mentionnée.",
+               "SLOs, SLAs, SRE — aucun de ces concepts n'apparaît.",
+               "Pas de certifications cloud (AWS, GCP, Azure).",
+          ],
+          recommendations: [
+               {
+                    priority: "haute",
+                    title: "Documenter l'expérience CI/CD en détail",
+                    impact: "+7 pts ATS",
+                    why: "Le CI/CD est la compétence la plus proche de votre profil actuel. La détailler massivement est le chemin le plus rapide vers un meilleur score.",
+                    how: "Décrivez précisément les outils utilisés (GitHub Actions, Jenkins, GitLab CI), les pipelines construits, les temps de build améliorés, et les déploiements automatisés.",
+                    before: "Set up CI/CD pipelines for the team.",
+                    after: "Designed and maintained GitHub Actions CI/CD pipelines for 8 microservices, reducing deployment time from 45 min to 8 min and achieving zero-downtime deployments via blue-green strategy.",
+               },
+               {
+                    priority: "haute",
+                    title: "Ajouter les outils d'infrastructure manquants",
+                    impact: "+10 pts ATS",
+                    why: "Terraform, Kubernetes et Ansible sont mentionnés comme requis dans l'offre. Leur absence est éliminatoire pour un poste DevOps.",
+                    how: "Si vous avez des notions de ces outils (même via des projets perso ou des formations), mentionnez-les. Sinon, il est urgent de les acquérir.",
+                    before: "Managed application deployments on AWS.",
+                    after: "Provisioned and managed AWS infrastructure using Terraform (IaC), orchestrated containerized workloads with Kubernetes (EKS), and automated server configuration with Ansible playbooks.",
+               },
+               {
+                    priority: "haute",
+                    title: "Mentionner l'observabilité et le monitoring",
+                    impact: "+8 pts ATS",
+                    why: "Datadog est un produit d'observabilité. Ne pas mentionner de monitoring dans un CV envoyé à Datadog est une incohérence critique.",
+                    how: "Ajoutez toute expérience avec Datadog, Prometheus, Grafana, CloudWatch, ou tout autre outil de monitoring/alerting.",
+                    before: "Monitored application health and resolved production issues.",
+                    after: "Implemented observability stack with Prometheus and Grafana for 12 services; configured alerting rules reducing MTTR from 45 min to 12 min; on-call rotation covering 99.9% uptime SLO.",
+               },
+               {
+                    priority: "moyenne",
+                    title: "Intégrer le vocabulaire SRE",
+                    impact: "+5 pts ATS",
+                    why: "Les postes DevOps chez Datadog s'inscrivent dans une culture SRE. L'absence totale de ce vocabulaire signale un profil non adapté.",
+                    how: "Utilisez les termes SLO, SLA, MTTR, incident management, post-mortem dans vos descriptions d'expérience.",
+                    before: "Helped resolve production outages and minimize downtime.",
+                    after: "Participated in on-call rotation and led post-mortems for 3 P1 incidents; contributed to defining SLOs for core payment services, achieving 99.95% monthly uptime.",
+               },
+          ],
+          keywords: {
+               present: ["AWS", "Python", "Bash", "Linux", "CI/CD", "Git", "Docker"],
+               missing: [
+                    "Terraform",
+                    "Kubernetes",
+                    "Ansible",
+                    "Prometheus",
+                    "Grafana",
+                    "SRE",
+                    "SLO",
+                    "PagerDuty",
+                    "Helm",
+                    "Datadog",
+                    "IaC",
+                    "EKS",
+               ],
+               optional: ["ArgoCD", "Vault", "Consul", "Istio", "OpenTelemetry", "Pulumi"],
+          },
+          skills: {
+               detected: ["Python", "Bash", "Linux", "AWS", "Docker", "CI/CD", "Git"],
+               toHighlight: ["Docker", "CI/CD", "AWS", "Python"],
+          },
+          criteria: [
+               {
+                    name: "ATS",
+                    score: 39,
+                    summary: "Score ATS très faible. Les mots-clés DevOps/SRE critiques sont quasi absents.",
+                    strengths: [
+                         "Quelques mots-clés généraux présents (AWS, Docker, Linux).",
+                         "Format compatible avec les parseurs.",
+                    ],
+                    weaknesses: [
+                         "Terraform, Kubernetes, Prometheus, Grafana, Helm totalement absents.",
+                         "Aucun mot-clé SRE (SLO, MTTR, incident management).",
+                    ],
+                    tips: [
+                         "Ajoutez impérativement les outils d'orchestration et d'IaC.",
+                         "Utilisez le vocabulaire SRE dans vos descriptions de missions.",
+                    ],
+                    example: null,
+               },
+               {
+                    name: "Compétences",
+                    score: 42,
+                    summary: "Les compétences ops sont la principale lacune. Le profil est développeur, pas opérateur.",
+                    strengths: [
+                         "Scripting Python et Bash utiles en DevOps.",
+                         "Connaissance Docker est un point de départ.",
+                    ],
+                    weaknesses: [
+                         "Kubernetes, Terraform, Ansible absents.",
+                         "Aucune expérience d'observabilité documentée.",
+                    ],
+                    tips: [
+                         "Ajoutez une section 'Infrastructure & Ops' distincte.",
+                         "Listez vos certifications cloud le cas échéant (AWS SAA, CKA).",
+                    ],
+                    example: null,
+               },
+               {
+                    name: "Contenu",
+                    score: 51,
+                    summary: "Le contenu décrit des missions de développeur. Un CV DevOps doit décrire des missions d'infrastructure et d'opérations.",
+                    strengths: [
+                         "Quelques expériences de déploiement mentionnées.",
+                         "CI/CD cité dans plusieurs postes.",
+                    ],
+                    weaknesses: [
+                         "Aucune mention de gestion d'incidents ou d'on-call.",
+                         "Infrastructure non décrite (VPC, sécurité réseau, IAM).",
+                    ],
+                    tips: [
+                         "Reformulez vos expériences pour mettre en avant l'impact opérationnel.",
+                         "Ajoutez toute expérience de gestion d'infrastructure, même partielle.",
+                    ],
+                    example: {
+                         before: "Deployed backend services to AWS.",
+                         after: "Managed deployment and scaling of 6 backend services on AWS ECS; implemented auto-scaling policies reducing infrastructure costs by 22% during off-peak hours.",
+                    },
+               },
+               {
+                    name: "Structure",
+                    score: 68,
+                    summary: "Structure lisible mais non adaptée à un profil DevOps/SRE.",
+                    strengths: ["Sections bien délimitées.", "Chronologie cohérente."],
+                    weaknesses: [
+                         "Pas de section dédiée à l'infrastructure/cloud.",
+                         "Compétences DevOps noyées dans des compétences générales.",
+                    ],
+                    tips: [
+                         "Créez une section 'Infrastructure & Cloud' distincte en haut.",
+                         "Séparez les compétences ops des compétences de développement.",
+                    ],
+                    example: null,
+               },
+               {
+                    name: "Ton",
+                    score: 55,
+                    summary: "Le ton est celui d'un développeur, pas d'un ingénieur ops. Les verbes utilisés reflètent l'exécution logicielle, pas la gestion d'infrastructure.",
+                    strengths: ["Ton professionnel et structuré.", "Pas de fautes de style."],
+                    weaknesses: [
+                         "Verbes trop orientés dev (built, coded, implemented).",
+                         "Absence de verbes ops (provisioned, orchestrated, monitored, automated).",
+                    ],
+                    tips: [
+                         "Utilisez : provisioned, orchestrated, monitored, automated, hardened, scaled.",
+                         "Montrez que vous pensez en termes de fiabilité et de disponibilité.",
+                    ],
+                    example: {
+                         before: "Built and deployed containerized applications.",
+                         after: "Orchestrated containerized workloads on Kubernetes, managing rolling deployments across 3 environments with zero-downtime releases and automated rollback policies.",
+                    },
+               },
+               {
+                    name: "Lisibilité",
+                    score: 72,
+                    summary: "La lisibilité est correcte, mais le manque de ciblage rend le CV difficile à évaluer pour un recruteur DevOps.",
+                    strengths: ["Mise en page propre et aérée.", "Taille de police cohérente."],
+                    weaknesses: [
+                         "L'identité DevOps n'est pas lisible au premier coup d'œil.",
+                         "Les expériences ops se noient dans les expériences dev.",
+                    ],
+                    tips: [
+                         "Mettez les expériences les plus pertinentes pour le poste en premier.",
+                         "Ajoutez un résumé professionnel qui affirme votre identité DevOps/SRE.",
+                    ],
+                    example: null,
+               },
+          ],
+     },
+};

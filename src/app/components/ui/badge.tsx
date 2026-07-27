@@ -2,7 +2,7 @@ import { cn } from "../../lib/cn";
 
 interface BadgeProps {
      children: React.ReactNode;
-     color: "green" | "blue" | "orange" | "red" | "gray";
+     color: "green" | "blue" | "orange" | "red" | "gray" | "primary";
 }
 
 const Badge: React.FC<BadgeProps> = ({ children, color }) => {
@@ -12,6 +12,7 @@ const Badge: React.FC<BadgeProps> = ({ children, color }) => {
           orange: "bg-warning/30 text-bold border-warning",
           red: "bg-destructive/30 text-bold border-destructive",
           gray: "bg-muted-foreground/30 text-bold border-muted-foreground",
+          primary: "bg-primary/30 text-bold border-primary",
      };
      return (
           <span

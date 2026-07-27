@@ -2,7 +2,7 @@ import { FileText, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import AnalysisCard from "../components/AnalysisCard";
 import Button from "../components/ui/button";
-import { INITIAL_ANALYSES } from "../lib/mockData";
+import { MOCK_ANALYSES } from "../lib/mockData";
 import type { Analysis } from "../lib/types";
 
 const DashboardPage = ({
@@ -10,9 +10,9 @@ const DashboardPage = ({
      onOpenAnalysis,
 }: {
      onNewAnalysis: () => void;
-     onOpenAnalysis: () => void;
+     onOpenAnalysis: (id: string) => void;
 }) => {
-     const [analyses, setAnalyses] = useState<Analysis[]>(INITIAL_ANALYSES);
+     const [analyses, setAnalyses] = useState<Analysis[]>(MOCK_ANALYSES);
      const [search, setSearch] = useState("");
      const [sortBy, setSortBy] = useState<"date" | "score">("date");
 
@@ -102,7 +102,7 @@ const DashboardPage = ({
                          <ul className="space-y-4">
                               {filteredAnalyses.map((analysis) => (
                                    <li key={analysis.id}>
-                                        <AnalysisCard analysis={analysis} onOpen={onOpenAnalysis} />
+                                        <AnalysisCard analysis={analysis} onOpen={() => onOpenAnalysis(analysis.id)} />
                                    </li>
                               ))}
                          </ul>
