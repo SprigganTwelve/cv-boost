@@ -32,7 +32,10 @@ const Button: React.FC<ButtonProps> = ({
      return (
           <button
                type={type}
-               onClick={onClick}
+               onClick={(e) => {
+                    e.stopPropagation();
+                    onClick;
+               }}
                className={cn(
                     "inline-flex items-center justify-center border-2 shadow-md font-black cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
                     variantStyles[variant],

@@ -5,7 +5,13 @@ import Button from "../components/ui/button";
 import { INITIAL_ANALYSES } from "../lib/mockData";
 import type { Analysis } from "../lib/types";
 
-const DashboardPage = ({ onNewAnalysis }: { onNewAnalysis: () => void }) => {
+const DashboardPage = ({
+     onNewAnalysis,
+     onOpenAnalysis,
+}: {
+     onNewAnalysis: () => void;
+     onOpenAnalysis: () => void;
+}) => {
      const [analyses, setAnalyses] = useState<Analysis[]>(INITIAL_ANALYSES);
      const [search, setSearch] = useState("");
      const [sortBy, setSortBy] = useState<"date" | "score">("date");
@@ -96,7 +102,7 @@ const DashboardPage = ({ onNewAnalysis }: { onNewAnalysis: () => void }) => {
                          <ul className="space-y-4">
                               {filteredAnalyses.map((analysis) => (
                                    <li key={analysis.id}>
-                                        <AnalysisCard analysis={analysis} />
+                                        <AnalysisCard analysis={analysis} onOpen={onOpenAnalysis} />
                                    </li>
                               ))}
                          </ul>

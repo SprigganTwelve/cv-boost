@@ -6,13 +6,17 @@ import Button from "./ui/button";
 
 interface AnalysisCard {
      analysis: Analysis;
+     onOpen: () => void;
 }
-const AnalysisCard: React.FC<AnalysisCard> = ({ analysis }) => {
+const AnalysisCard: React.FC<AnalysisCard> = ({ analysis, onOpen }) => {
      const { score } = analysis;
      const color = getScoreColor(score);
      const badgeColor = getScoreBadgeVariant(score);
      return (
-          <article className="border-2 p-4 md:p-5 flex items-center gap-4 cursor-pointer hover:translate-y-0.5 transition-transform shadow-md">
+          <article
+               className="border-2 p-4 md:p-5 flex items-center gap-4 cursor-pointer hover:translate-y-0.5 transition-transform shadow-md"
+               onClick={onOpen}
+          >
                {/* Company avatar */}
                <div
                     className="w-12 h-12 md:w-14 md:h-14 bg-primary dark:text-background border-2 flex items-center justify-center font-bold text-xl"
@@ -42,7 +46,13 @@ const AnalysisCard: React.FC<AnalysisCard> = ({ analysis }) => {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                         <Button className="shadow-sm" size="icon" variant="black" aria-label="Voir l'analyse">
+                         <Button
+                              className="shadow-sm"
+                              size="icon"
+                              variant="black"
+                              aria-label="Voir l'analyse"
+                              onClick={onOpen}
+                         >
                               <ArrowRight size={16} />
                          </Button>
                          <Button
