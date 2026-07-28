@@ -1,4 +1,5 @@
-import { Plus } from "lucide-react";
+import { Plus, TrendingUp } from "lucide-react";
+import CircularGauge from "../components/CircularGauge";
 import Badge from "../components/ui/badge";
 import Button from "../components/ui/button";
 import { MOCK_REPORTS } from "../lib/mockData";
@@ -40,6 +41,33 @@ const ReportPage = ({
                               </Button>
                          </div>
                     </div>
+               </div>
+
+               <div className="max-w-4xl mx-auto px-6 py-8 space-y-8">
+                    {/* § Global score */}
+                    <section aria-labelledby="score-heading">
+                         <div className="border-4 p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 shadow-lg">
+                              <CircularGauge score={report.globalScore} size={180} />
+                              <div className="flex-1">
+                                   <h2 id="score-heading" className="font-black text-2xl mb-1">
+                                        Score de compatibilité
+                                   </h2>
+                                   <p className="text-muted-foreground/60 font-medium mb-4">
+                                        {report.company} — {report.role}
+                                   </p>
+                                   <p className="font-medium text-muted-foreground leading-relaxed mb-5">
+                                        {report.summary.slice(0, 220)}...
+                                   </p>
+                                   <div className="inline-flex items-center gap-3 bg-success/15 border-2 border-success px-4 py-2 shadow-sm">
+                                        <TrendingUp size={18} className="text-success" aria-hidden="true" />
+                                        <span className="font-bold text-sm">Score estimé après améliorations :</span>
+                                        <span className="font-bold text-2xl text-green-600 dark:text-green-400">
+                                             ≈ {report.estimatedAfter}/100
+                                        </span>
+                                   </div>
+                              </div>
+                         </div>
+                    </section>
                </div>
           </main>
      );

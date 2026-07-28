@@ -40,7 +40,7 @@ const DashboardPage = ({
                               <br />
                               pour une offre d'emploi
                          </h1>
-                         <p className="text-lg font-medium text-gray-600 mb-6 max-w-xl">
+                         <p className="text-lg font-medium text-muted-foreground mb-6 max-w-xl">
                               Découvrez comment améliorer votre CV grâce à une analyse IA détaillée.
                          </p>
                          <Button size="lg" onClick={onNewAnalysis}>

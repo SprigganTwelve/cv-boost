@@ -26,6 +26,8 @@
   --warning-foreground: #000000;
   --info-foreground: #ffffff;
 
+  --gauge-track: #e5e7eb;
+
   --border: #000000;
   --input: transparent;
   --input-background: #ffffff;
@@ -70,6 +72,9 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
+
+  --gauge-track: #3f3f46;
+
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
