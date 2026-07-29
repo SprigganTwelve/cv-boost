@@ -110,6 +110,14 @@ const ReportPage = ({
                               ))}
                          </div>
                     </section>
+
+                    {/* AI Summary */}
+                    <section aria-labelledby="summary-heading" className="border-4  bg-primary/10 p-6 shadow-md">
+                         <h2 id="summary-heading" className="font-bold text-2xl mb-4">
+                              Résumé de l'analyse IA
+                         </h2>
+                         <p className="font-medium text-muted-foreground leading-relaxed">{report.summary}</p>
+                    </section>
                </div>
           </main>
      );
