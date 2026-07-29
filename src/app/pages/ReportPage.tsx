@@ -118,6 +118,57 @@ const ReportPage = ({
                          </h2>
                          <p className="font-medium text-muted-foreground leading-relaxed">{report.summary}</p>
                     </section>
+
+                    {/* Strengths + Weaknesses */}
+                    <div className="grid md:grid-cols-2 gap-4">
+                         <section aria-labelledby="strengths-heading" className="border-2 p-5 shadow-md">
+                              <h3 id="strengths-heading" className="font-bold text-lg mb-4 flex items-center gap-2">
+                                   <span
+                                        className="w-6 h-6 bg-success border-2 flex items-center justify-center text-xs font-bold"
+                                        aria-hidden="true"
+                                   >
+                                        ✓
+                                   </span>
+                                   Points forts
+                              </h3>
+                              <ul className="space-y-2">
+                                   {report.strengths.map((strength, key) => (
+                                        <li key={key} className="flex items-start gap-2 text-sm font-medium">
+                                             <span className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true">
+                                                  ●
+                                             </span>
+                                             {strength}
+                                        </li>
+                                   ))}
+                              </ul>
+                         </section>
+
+                         <section aria-labelledby="weaknesses-heading" className="border-2 p-5 shadow-md">
+                              <h3
+                                   id="weaknesses-heading"
+                                   className="font-black text-lg mb-4 flex items-center gap-2"
+                                   style={{ fontFamily: "'Stack Sans Notch', sans-serif" }}
+                              >
+                                   <span
+                                        className="w-6 h-6 bg-destructive border-2 flex items-center justify-center text-xs font-bold"
+                                        aria-hidden="true"
+                                   >
+                                        !
+                                   </span>
+                                   Points faibles
+                              </h3>
+                              <ul className="space-y-2">
+                                   {report.weaknesses.map((weakness, key) => (
+                                        <li key={key} className="flex items-start gap-2 text-sm font-medium">
+                                             <span className="text-destructive mt-0.5 flex-shrink-0" aria-hidden="true">
+                                                  ●
+                                             </span>
+                                             {weakness}
+                                        </li>
+                                   ))}
+                              </ul>
+                         </section>
+                    </div>
                </div>
           </main>
      );
