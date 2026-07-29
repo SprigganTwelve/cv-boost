@@ -2,6 +2,7 @@ import { Plus, TrendingUp } from "lucide-react";
 import CircularGauge from "../components/CircularGauge";
 import Badge from "../components/ui/badge";
 import Button from "../components/ui/button";
+import { getScoreColor } from "../lib/helpers";
 import { MOCK_REPORTS } from "../lib/mockData";
 
 const ReportPage = ({
@@ -18,6 +19,17 @@ const ReportPage = ({
           return MOCK_REPORTS[reportId] ?? MOCK_REPORTS["1"];
      };
      const report = getReportById(reportId);
+
+     const ScoreBar = ({ score }: { score: number }) => {
+          return (
+               <div className="w-full h-3 border-2 overflow-hidden">
+                    <div
+                         className="h-full transition-all duration-700"
+                         style={{ width: `${score}%`, backgroundColor: getScoreColor(score) }}
+                    />
+               </div>
+          );
+     };
 
      return (
           <main>
@@ -44,7 +56,7 @@ const ReportPage = ({
                </div>
 
                <div className="max-w-4xl mx-auto px-6 py-8 space-y-8">
-                    {/* § Global score */}
+                    {/* Global score */}
                     <section aria-labelledby="score-heading">
                          <div className="border-4 p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 shadow-lg">
                               <CircularGauge score={report.globalScore} size={180} />
@@ -66,6 +78,36 @@ const ReportPage = ({
                                         </span>
                                    </div>
                               </div>
+                         </div>
+                    </section>
+
+                    {/* Detailed score0s */}
+                    <section aria-labelledby="detail-scores-heading">
+                         <h2 id="detail-scores-heading" className="font-bold text-2xl mb-4">
+                              Scores détaillés
+                         </h2>
+                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                              {report.detailedScores.map((score) => (
+                                   <div key={score.name} className="border-2 p-4 shadow-md">
+                                        <div className="flex items-center justify-between mb-3">
+                                             <span className="font-bold text-sm uppercase tracking-wide">
+                                                  {score.name}
+                                             </span>
+                                             <span
+                                                  className="font-bold text-2xl"
+                                                  style={{
+                                                       color: getScoreColor(score.score),
+                                                  }}
+                                             >
+                                                  {score.score}
+                                             </span>
+                                        </div>
+                                        <ScoreBar score={score.score} />
+                                        <p className="text-xs text-muted-foreground mt-2 font-medium">
+                                             {score.comment}
+                                        </p>
+                                   </div>
+                              ))}
                          </div>
                     </section>
                </div>
