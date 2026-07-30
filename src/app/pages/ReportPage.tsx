@@ -270,6 +270,45 @@ const ReportPage = ({
                               ))}
                          </div>
                     </section>
+
+                    {/* Skills */}
+                    <section aria-labelledby="skills-heading">
+                         <h2 id="skills-heading" className="font-bold text-2xl mb-4">
+                              Compétences
+                         </h2>
+                         <div className="grid md:grid-cols-2 gap-4">
+                              <div className="border-2 p-4 shadow-md">
+                                   <h3 className="font-bold text-sm uppercase tracking-widest mb-3">
+                                        Détectées ({report.skills.detected.length})
+                                   </h3>
+                                   <div className="flex flex-wrap gap-2">
+                                        {report.skills.detected.map((skill, key) => (
+                                             <span
+                                                  key={key}
+                                                  className="bg-blue-100 dark:bg-blue-900/30 border-2 border-blue-500 dark:border-blue-400 px-2 py-0.5 text-xs font-bold text-blue-900 dark:text-blue-300"
+                                             >
+                                                  {skill}
+                                             </span>
+                                        ))}
+                                   </div>
+                              </div>
+                              <div className="border-2 p-4 shadow-md">
+                                   <h3 className="font-bold text-sm uppercase tracking-widest mb-3">
+                                        À mettre davantage en avant
+                                   </h3>
+                                   <div className="flex flex-wrap gap-2">
+                                        {report.skills.toHighlight.map((skill, key) => (
+                                             <span
+                                                  key={key}
+                                                  className="bg-yellow-300 dark:bg-yellow-400 border-2 border-black px-2 py-0.5 text-xs font-bold text-bold"
+                                             >
+                                                  {skill}
+                                             </span>
+                                        ))}
+                                   </div>
+                              </div>
+                         </div>
+                    </section>
                </div>
           </main>
      );
