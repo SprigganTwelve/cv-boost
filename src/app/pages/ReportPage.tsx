@@ -1,4 +1,4 @@
-import { CheckCircle, Copy, Plus, TrendingUp } from "lucide-react";
+import { CheckCircle, Copy, Download, Plus, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import CircularGauge from "../components/CircularGauge";
 import Badge from "../components/ui/badge";
@@ -307,6 +307,27 @@ const ReportPage = ({
                                         ))}
                                    </div>
                               </div>
+                         </div>
+                    </section>
+
+                    {/* CTA footer */}
+                    <section
+                         aria-label="Actions"
+                         className="border-4 bg-primary p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between shadow-lg"
+                    >
+                         <div>
+                              <h3 className="font-bold text-xl mb-1">Prêt à améliorer votre CV ?</h3>
+                              <p className="font-medium text-sm">
+                                   Appliquez les recommandations et relancez une analyse pour suivre vos progrès.
+                              </p>
+                         </div>
+                         <div className="flex gap-3 flex-wrap flex-shrink-0">
+                              <Button variant="secondary" size="md">
+                                   <Download size={16} /> Télécharger le rapport
+                              </Button>
+                              <Button onClick={onNewAnalysis} variant="black" size="md">
+                                   <Plus size={16} /> Nouvelle analyse
+                              </Button>
                          </div>
                     </section>
                </div>
