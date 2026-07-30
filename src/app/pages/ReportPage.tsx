@@ -501,7 +501,7 @@ const ReportPage = ({
                     {/* CTA footer */}
                     <section
                          aria-label="Actions"
-                         className="border-4 bg-primary p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between shadow-lg"
+                         className="border-4 bg-primary p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between shadow-lg dark:text-black"
                     >
                          <div>
                               <h3 className="font-bold text-xl mb-1">Prêt à améliorer votre CV ?</h3>
