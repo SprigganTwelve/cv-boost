@@ -271,6 +271,57 @@ const ReportPage = ({
                          </div>
                     </section>
 
+                    {/* Keywords */}
+                    <section aria-labelledby="keywords-heading">
+                         <h2 id="keywords-heading" className="font-bold text-2xl mb-4">
+                              Analyse des mots-clés
+                         </h2>
+                         <div className="grid md:grid-cols-3 gap-4">
+                              {[
+                                   {
+                                        label: "Présents",
+                                        keywords: report.keywords.present,
+                                        light: { bg: "#bbf7d0", border: "var(--success)" },
+                                   },
+                                   {
+                                        label: "Manquants",
+                                        keywords: report.keywords.missing,
+                                        light: { bg: "#fecaca", border: "var(--destructive)" },
+                                   },
+                                   {
+                                        label: "Optionnels",
+                                        keywords: report.keywords.optional,
+                                        light: { bg: "#f3f4f6", border: "#9ca3af" },
+                                   },
+                              ].map(({ label, keywords, light }) => (
+                                   <div key={label} className="border-2 p-4 shadow-md">
+                                        <h3 className="font-bold text-sm uppercase tracking-widest mb-3 flex items-center gap-2">
+                                             <span
+                                                  className="w-3 h-3 border inline-block"
+                                                  style={{ backgroundColor: light.border }}
+                                                  aria-hidden="true"
+                                             />
+                                             {label} ({keywords.length})
+                                        </h3>
+                                        <div className="flex flex-wrap gap-2">
+                                             {keywords.map((keyword) => (
+                                                  <span
+                                                       key={keyword}
+                                                       className="px-2 py-0.5 text-xs font-bold border-2 text-black"
+                                                       style={{
+                                                            backgroundColor: light.bg,
+                                                            borderColor: light.border,
+                                                       }}
+                                                  >
+                                                       {keyword}
+                                                  </span>
+                                             ))}
+                                        </div>
+                                   </div>
+                              ))}
+                         </div>
+                    </section>
+
                     {/* Skills */}
                     <section aria-labelledby="skills-heading">
                          <h2 id="skills-heading" className="font-bold text-2xl mb-4">
@@ -300,7 +351,7 @@ const ReportPage = ({
                                         {report.skills.toHighlight.map((skill, key) => (
                                              <span
                                                   key={key}
-                                                  className="bg-yellow-300 dark:bg-yellow-400 border-2 border-black px-2 py-0.5 text-xs font-bold text-bold"
+                                                  className="bg-yellow-300 dark:bg-yellow-400 dark:text-black border-2 border-black px-2 py-0.5 text-xs font-bold text-bold"
                                              >
                                                   {skill}
                                              </span>
