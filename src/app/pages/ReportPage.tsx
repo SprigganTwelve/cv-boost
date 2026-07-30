@@ -1,4 +1,4 @@
-import { CheckCircle, Copy, Download, Plus, TrendingUp } from "lucide-react";
+import { CheckCircle, ChevronDown, ChevronUp, Copy, Download, Plus, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import CircularGauge from "../components/CircularGauge";
 import Badge from "../components/ui/badge";
@@ -16,6 +16,7 @@ const ReportPage = ({
      onBack: () => void;
 }) => {
      const [copiedKey, setCopiedKey] = useState<string | null>(null);
+     const [openCriterion, setOpenCriterion] = useState<string | null>(null);
 
      const getReportById = (reportId: string) => {
           // use mock data for now
@@ -268,6 +269,142 @@ const ReportPage = ({
                                         </div>
                                    </article>
                               ))}
+                         </div>
+                    </section>
+
+                    {/* Detailed criteria accordion */}
+                    <section aria-labelledby="criteria-heading">
+                         <h2 id="criteria-heading" className="font-black text-2xl mb-4">
+                              Analyse détaillée par critère
+                         </h2>
+                         <div className="border-2 shadow-md">
+                              {report.criteria.map((criterion, i) => {
+                                   const isOpen = openCriterion === criterion.name;
+                                   return (
+                                        <div
+                                             key={criterion.name}
+                                             className={i < report.criteria.length - 1 ? "border-b-2" : ""}
+                                        >
+                                             <button
+                                                  className="w-full flex items-center justify-between p-4  hover:bg-primary/10 transition-colors cursor-pointer"
+                                                  onClick={() => setOpenCriterion(isOpen ? null : criterion.name)}
+                                                  aria-expanded={isOpen}
+                                                  aria-controls={`criterion-${criterion.name}`}
+                                             >
+                                                  <div className="flex items-center gap-4">
+                                                       <span className="font-black text-base uppercase tracking-wide">
+                                                            {criterion.name}
+                                                       </span>
+                                                       <div className="w-28 hidden sm:block">
+                                                            <ScoreBar score={criterion.score} />
+                                                       </div>
+                                                  </div>
+                                                  <div className="flex items-center gap-3">
+                                                       <span
+                                                            className="font-black text-2xl"
+                                                            style={{
+                                                                 color: getScoreColor(criterion.score),
+                                                            }}
+                                                       >
+                                                            {criterion.score}
+                                                       </span>
+                                                       {isOpen ? (
+                                                            <ChevronUp size={18} aria-hidden="true" />
+                                                       ) : (
+                                                            <ChevronDown size={18} aria-hidden="true" />
+                                                       )}
+                                                  </div>
+                                             </button>
+
+                                             {isOpen && (
+                                                  <div
+                                                       id={`criterion-${criterion.name}`}
+                                                       className="border-t-2 p-5 space-y-4"
+                                                  >
+                                                       <p className="font-medium">{criterion.summary}</p>
+                                                       <div className="grid md:grid-cols-2 gap-4">
+                                                            <div>
+                                                                 <p className="text-xs font-bold uppercase tracking-widest text-success mb-2">
+                                                                      ✓ Forces
+                                                                 </p>
+                                                                 <ul className="space-y-1.5">
+                                                                      {criterion.strengths.map((strength, j) => (
+                                                                           <li
+                                                                                key={j}
+                                                                                className="text-sm font-medium flex gap-2"
+                                                                           >
+                                                                                <span className="text-success flex-shrink-0">
+                                                                                     ●
+                                                                                </span>
+                                                                                <span className="text-muted-foreground">
+                                                                                     {strength}
+                                                                                </span>
+                                                                           </li>
+                                                                      ))}
+                                                                 </ul>
+                                                            </div>
+                                                            <div>
+                                                                 <p className="text-xs font-bold uppercase tracking-widest text-destructive mb-2">
+                                                                      ✗ Faiblesses
+                                                                 </p>
+                                                                 <ul className="space-y-1.5">
+                                                                      {criterion.weaknesses.map((weakness, j) => (
+                                                                           <li
+                                                                                key={j}
+                                                                                className="text-sm font-medium flex gap-2"
+                                                                           >
+                                                                                <span className="text-destructive flex-shrink-0">
+                                                                                     ●
+                                                                                </span>
+                                                                                <span className="text-muted-foreground">
+                                                                                     {weakness}
+                                                                                </span>
+                                                                           </li>
+                                                                      ))}
+                                                                 </ul>
+                                                            </div>
+                                                       </div>
+                                                       <div>
+                                                            <p className="text-xs font-bold uppercase tracking-widest mb-2">
+                                                                 Conseils
+                                                            </p>
+                                                            <ul className="space-y-1.5">
+                                                                 {criterion.tips.map((t, j) => (
+                                                                      <li
+                                                                           key={j}
+                                                                           className="text-sm font-medium flex gap-2 text-muted-foreground"
+                                                                      >
+                                                                           <span className="flex-shrink-0">→</span>
+                                                                           {t}
+                                                                      </li>
+                                                                 ))}
+                                                            </ul>
+                                                       </div>
+                                                       {criterion.example && (
+                                                            <div className="grid md:grid-cols-2 gap-3">
+                                                                 <div className="bg-destructive/5 border-2 border-destructive p-3">
+                                                                      <p className="text-xs font-bold uppercase text-destructive mb-1">
+                                                                           Avant
+                                                                      </p>
+                                                                      <p className="text-sm font-medium text-muted-foreground">
+                                                                           {criterion.example.before}
+                                                                      </p>
+                                                                 </div>
+                                                                 <div className="bg-success/5 border-2 border-success p-3">
+                                                                      <p className="text-xs font-bold uppercase text-success mb-1">
+                                                                           Après
+                                                                      </p>
+                                                                      <p className="text-sm font-medium text-muted-foreground">
+                                                                           {criterion.example.after}
+                                                                      </p>
+                                                                 </div>
+                                                            </div>
+                                                       )}
+                                                  </div>
+                                             )}
+                                        </div>
+                                   );
+                              })}
                          </div>
                     </section>
 
