@@ -1,4 +1,5 @@
-import { Plus, TrendingUp } from "lucide-react";
+import { CheckCircle, Copy, Plus, TrendingUp } from "lucide-react";
+import { useState } from "react";
 import CircularGauge from "../components/CircularGauge";
 import Badge from "../components/ui/badge";
 import Button from "../components/ui/button";
@@ -14,6 +15,8 @@ const ReportPage = ({
      onNewAnalysis: () => void;
      onBack: () => void;
 }) => {
+     const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
      const getReportById = (reportId: string) => {
           // use mock data for now
           return MOCK_REPORTS[reportId] ?? MOCK_REPORTS["1"];
@@ -30,6 +33,12 @@ const ReportPage = ({
                </div>
           );
      };
+     function copyText(text: string, key: string) {
+          navigator.clipboard.writeText(text).then(() => {
+               setCopiedKey(key);
+               setTimeout(() => setCopiedKey(null), 2000);
+          });
+     }
 
      return (
           <main>
@@ -169,6 +178,98 @@ const ReportPage = ({
                               </ul>
                          </section>
                     </div>
+
+                    {/* Priority recommendations */}
+                    <section aria-labelledby="reco-heading">
+                         <h2 id="reco-heading" className="font-bold text-2xl mb-4">
+                              Recommandations prioritaires
+                         </h2>
+                         <div className="space-y-5">
+                              {report.recommendations.map((recommendation, key) => (
+                                   <article key={key} className="border-4 p-6 shadow-lg">
+                                        <div className="flex items-start justify-between gap-4 mb-5">
+                                             <div>
+                                                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                                       <Badge
+                                                            color={
+                                                                 recommendation.priority === "haute"
+                                                                      ? "red"
+                                                                      : recommendation.priority === "moyenne"
+                                                                        ? "orange"
+                                                                        : "green"
+                                                            }
+                                                       >
+                                                            Priorité {recommendation.priority}
+                                                       </Badge>
+                                                       <Badge color="primaryblack">
+                                                            Impact : {recommendation.impact}
+                                                       </Badge>
+                                                  </div>
+                                                  <h3 className="font-bold text-xl">{recommendation.title}</h3>
+                                             </div>
+                                             <span
+                                                  className="font-bold text-4xl text-muted-foreground/20 leading-none select-none"
+                                                  aria-hidden="true"
+                                             >
+                                                  #{key + 1}
+                                             </span>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                             <div className="bg-muted-foreground/5 border-l-4 border-black dark:border-primary p-4">
+                                                  <p className="text-xs font-bold uppercase tracking-widest mb-1">
+                                                       Pourquoi ?
+                                                  </p>
+                                                  <p className="text-sm font-medium text-muted-foreground">
+                                                       {recommendation.why}
+                                                  </p>
+                                             </div>
+                                             <div className="bg-muted-foreground/5 border-l-4 border-yellow-600 dark:border-primary p-4">
+                                                  <p className="text-xs font-bold uppercase tracking-widest mb-1">
+                                                       Comment faire ?
+                                                  </p>
+                                                  <p className="text-sm font-medium text-muted-foreground">
+                                                       {recommendation.how}
+                                                  </p>
+                                             </div>
+
+                                             <div className="grid md:grid-cols-2 gap-3">
+                                                  <div className="bg-destructive/10 border-2 border-destructive p-4">
+                                                       <p className="text-xs font-bold uppercase tracking-widest text-destructive mb-2">
+                                                            Avant
+                                                       </p>
+                                                       <p className="text-sm font-medium text-muted-foreground">
+                                                            {recommendation.before}
+                                                       </p>
+                                                  </div>
+                                                  <div className="bg-success/10 border-2 border-success p-4 relative">
+                                                       <p className="text-xs font-bold uppercase tracking-widest text-success mb-2">
+                                                            Après
+                                                       </p>
+                                                       <p className="text-sm font-medium text-muted-foreground pr-8">
+                                                            {recommendation.after}
+                                                       </p>
+                                                       <button
+                                                            onClick={() =>
+                                                                 copyText(recommendation.after, `recommendation-${key}`)
+                                                            }
+                                                            className="absolute top-3 right-3 p-1.5 border-2  hover:bg-primary/50  cursor-pointer transition-colors shadow-sm"
+                                                            aria-label="Copier la reformulation"
+                                                            title="Copier"
+                                                       >
+                                                            {copiedKey === `recommendation-${key}` ? (
+                                                                 <CheckCircle size={14} className="text-success" />
+                                                            ) : (
+                                                                 <Copy size={14} />
+                                                            )}
+                                                       </button>
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   </article>
+                              ))}
+                         </div>
+                    </section>
                </div>
           </main>
      );
