@@ -1,10 +1,11 @@
 import { useState } from "react";
 import AppHeader from "./components/AppHeader";
 import DashboardPage from "./pages/DashboardPage";
+import LoadingPage from "./pages/LoadingPage";
 import NewAnalysisPage from "./pages/NewAnalysisPage";
 import ReportPage from "./pages/ReportPage";
 
-type Page = "dashboard" | "new-analysis" | "report";
+type Page = "dashboard" | "new-analysis" | "loading" | "report";
 
 function App() {
      const [page, setPage] = useState<Page>("dashboard");
@@ -22,7 +23,10 @@ function App() {
                          }}
                     />
                )}
-               {page === "new-analysis" && <NewAnalysisPage onBack={() => setPage("dashboard")} />}
+               {page === "new-analysis" && (
+                    <NewAnalysisPage onBack={() => setPage("dashboard")} onSubmit={() => setPage("loading")} />
+               )}
+               {page === "loading" && <LoadingPage />}
                {page === "report" && (
                     <ReportPage
                          reportId={selectedId}

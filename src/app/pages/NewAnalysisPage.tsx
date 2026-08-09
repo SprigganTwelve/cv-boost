@@ -3,7 +3,7 @@ import Badge from "../components/ui/badge";
 import Button from "../components/ui/button";
 import { cn } from "../lib/cn";
 
-const NewAnalysisPage = ({ onBack }: { onBack: () => void }) => {
+const NewAnalysisPage = ({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void }) => {
      return (
           <main className="max-w-2xl mx-auto px-6 py-10">
                <button
@@ -85,7 +85,7 @@ const NewAnalysisPage = ({ onBack }: { onBack: () => void }) => {
                     </div>
 
                     {/* Submit */}
-                    <Button size="lg" className="w-full justify-center">
+                    <Button size="lg" className="w-full justify-center" onClick={() => onSubmit()}>
                          <Zap size={20} /> Analyser mon CV
                     </Button>
                </div>
