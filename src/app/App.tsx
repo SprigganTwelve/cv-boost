@@ -26,7 +26,14 @@ function App() {
                {page === "new-analysis" && (
                     <NewAnalysisPage onBack={() => setPage("dashboard")} onSubmit={() => setPage("loading")} />
                )}
-               {page === "loading" && <LoadingPage />}
+               {page === "loading" && (
+                    <LoadingPage
+                         onComplete={() => {
+                              setSelectedId("1");
+                              setPage("report");
+                         }}
+                    />
+               )}
                {page === "report" && (
                     <ReportPage
                          reportId={selectedId}
