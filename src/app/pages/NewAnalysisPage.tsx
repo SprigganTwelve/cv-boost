@@ -1,4 +1,4 @@
-import { Upload, Zap } from "lucide-react";
+import { CheckCircle, Upload, X, Zap } from "lucide-react";
 import { useRef, useState } from "react";
 import Badge from "../components/ui/badge";
 import Button from "../components/ui/button";
@@ -57,7 +57,23 @@ const NewAnalysisPage = ({ onBack, onSubmit }: { onBack: () => void; onSubmit: (
                               CV <span className="text-destructive">*</span>
                          </label>
                          {file ? (
-                              <div>File loaded</div>
+                              <div className="border-2 bg-success/10 p-4 flex items-center justify-between shadow-md">
+                                   <div className="flex items-center gap-3">
+                                        <CheckCircle className="text-success shrink-0" size={20} />
+                                        <div>
+                                             <p className="font-bold truncate max-w-xs">{file.name}</p>
+                                             <p className="text-sm text-muted-foreground">
+                                                  {(file.size / 1024).toFixed(0)} Ko
+                                             </p>
+                                        </div>
+                                   </div>
+                                   <button
+                                        onClick={() => setFile(null)}
+                                        className="p-1.5 hover:bg-destructive/15 cursor-pointer rounded-none transition-colors"
+                                   >
+                                        <X size={18} className="text-destructive" />
+                                   </button>
+                              </div>
                          ) : (
                               <div
                                    className={cn(
