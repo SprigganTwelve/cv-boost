@@ -12,7 +12,7 @@ const DashboardPage = ({
      onNewAnalysis: () => void;
      onOpenAnalysis: (id: string) => void;
 }) => {
-     const [analyses, setAnalyses] = useState<Analysis[]>(MOCK_ANALYSES);
+     const [analyses] = useState<Analysis[]>(MOCK_ANALYSES);
      const [search, setSearch] = useState("");
      const [sortBy, setSortBy] = useState<"date" | "score">("date");
 
