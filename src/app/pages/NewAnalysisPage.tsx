@@ -8,8 +8,10 @@ const NewAnalysisPage = ({ onBack, onSubmit }: { onBack: () => void; onSubmit: (
      const [company, setCompany] = useState("");
      const [role, setRole] = useState("");
      const [jobDesc, setJobDesc] = useState("");
+
      const [file, setFile] = useState<File | null>(null);
      const fileRef = useRef<HTMLInputElement>(null);
+     const [dragging, setDragging] = useState(false);
 
      const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -79,10 +81,22 @@ const NewAnalysisPage = ({ onBack, onSubmit }: { onBack: () => void; onSubmit: (
                                    className={cn(
                                         "p-10 border-4 border-dashed text-center cursor-pointer transition-colors",
                                         "hover:bg-primary/10",
+                                        dragging && "bg-primary/30",
                                    )}
                                    role="button"
                                    aria-label="Cliquez ou glissez votre CV"
                                    onClick={() => fileRef.current?.click()}
+                                   onDragOver={(e) => {
+                                        e.preventDefault();
+                                        setDragging(true);
+                                   }}
+                                   onDragLeave={() => setDragging(false)}
+                                   onDrop={(e) => {
+                                        e.preventDefault();
+                                        setDragging(false);
+                                        const f = e.dataTransfer.files[0];
+                                        if (f) acceptFile(f);
+                                   }}
                               >
                                    <Upload
                                         size={36}
